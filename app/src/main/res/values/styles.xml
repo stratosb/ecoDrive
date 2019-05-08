@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="RegisterLabelColor">
+        <item name="android:textColor">#9d91ca</item>
+    </style>
+
+    <style name="RegisterTextColor">
+        <item name="android:textColor">#ebe8f4</item>
+    </style>
+
+    <style name="ScoreLabelColor">
+        <item name="android:textColor">#673ab7</item>
+    </style>
+
+    <style name="SafeDrivingColor">
+        <item name="android:textColor">#0166ff</item>
+    </style>
+
+    <style name="EconomyDrivingColor">
+        <item name="android:textColor">#614eaa</item>
+    </style>
+
+    <style name="VehiclesLabelColor">
+        <item name="android:textColor">#42e8cb</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

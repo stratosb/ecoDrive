@@ -1,0 +1,113 @@
+<resources>
+    <string name="app_name">ecoDrive</string>
+
+    <string name="com_auth0_client_id">3d2CshEKYtwkKPtnTmuDGyZAurs8UMub</string>
+    <string name="com_auth0_domain">georgemakrakis.eu.auth0.com</string>
+
+    <string name="title_activity_score">Score</string>
+    <string name="title_activity_register">Register</string>
+
+    <string name="sort_by">Options</string>
+    <string name="view_resutls">View results</string>
+    <string name="logout">Logout</string>
+
+    <string name="latitude_label">Latitude</string>
+    <string name="longitude_label">Longitude</string>
+    <string name="last_update_time_label">Last location update time</string>
+    <string name="speed_label">Speed</string>
+    <string name="driving_analysis">Driving Analysis</string>
+
+    <string name="start_updates">Start updates</string>
+    <string name="stop_updates">Stop updates</string>
+    <string name="show_results">Show results</string>
+
+    <string name="choose_user">Please choose a user:</string>
+    <string name="login">Login</string>
+
+    <string name="location_settings_inadequate_warning">The location settings on the device are not
+        adequate to run this sample. Fix in Settings.</string>
+
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core
+        functionality.</string>
+    <string name="settings">Settings</string>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <string-array name="ageGroup_array">
+        <item>18-35</item>
+        <item>36-55</item>
+        <item>56-65</item>
+        <item>65+</item>
+    </string-array>
+
+    <string-array name="maritalStatus_array">
+        <item>Single</item>
+        <item>Married</item>
+    </string-array>
+
+    <string-array name="childrenNo_array">
+        <item>Select Number of Children</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="childrenAge_array">
+        <item>0-5</item>
+        <item>6-12</item>
+        <item>13-18</item>
+    </string-array>
+
+    <string-array name="vehicleNo_array">
+        <item>Select Number of Vehicles</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="vehicleAge_array">
+        <item>1-5</item>
+        <item>6-10</item>
+        <item>11-15</item>
+        <item>>15</item>
+    </string-array>
+
+    <string-array name="fuelType_array">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>Lpg</item>
+        <item>Hybrid</item>
+        <item>Electric</item>
+    </string-array>
+
+    <string name="prompt_data_added">data saved</string>
+    <string name="prompt_data_not_saved">data cannot be saved</string>
+    <string name="prompt_no_data_found">No data found</string>
+    <string name="prompt_send_data_to_server">There is data that must be sent to server</string>
+    <string name="prompt_fill_in_details">Please fill in all details</string>
+
+    <string name="prompt_activate_connection">There is no internet connection. Would you like to activate it?</string>
+    <string name="prompt_goto_settings">Go to Settings</string>
+    <string name="prompt_no">No</string>
+    <string name="prompt_connection_problem">Problem with internet connection</string>
+
+    <!-- Error messages -->
+    <string name="error_getting_json">Problem getting JSON data</string>
+    <string name="error_no_data">Data not available</string>
+    <string name="error_load_data">Failed to asynchronously load data.</string>
+    <string name="error_cannot_insert_row">Failed to insert row </string>
+    <string name="error_unknown_uri">Unknown uri:\u0020</string>
+    <string name="error_loader_not_implemented">Loader not implemented:\u0020</string>
+    <string name="error_uri_not_null">URI cannot be null for:\u0020</string>
+</resources>

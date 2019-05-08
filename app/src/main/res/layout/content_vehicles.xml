@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="#614eaa"
+    android:layout_marginTop="55dp" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="left"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/nestedLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="218dp"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/colorButton"
+                style="@android:style/TextAppearance.Material.Widget.Button.Borderless.Colored"
+                android:text="Save" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
