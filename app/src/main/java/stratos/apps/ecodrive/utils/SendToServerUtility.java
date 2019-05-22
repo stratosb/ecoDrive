@@ -25,13 +25,14 @@ public class SendToServerUtility {
             @Override
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
+                    SaveToDBUtility.updateRegistrationToSent(ctx);
                     Toast.makeText(ctx, "Registration sent successfully", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ctx, ScoreActivity.class);
                     ctx.startActivity(intent);
                 } else {
-                    //Toast.makeText(ctx, response.errorBody().toString(), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ctx, LoginActivity.class);
-                    ctx.startActivity(intent);
+                    Toast.makeText(ctx, response.code() + ": " + response.message(), Toast.LENGTH_LONG).show();
+                    //Intent intent = new Intent(ctx, LoginActivity.class);
+                    //ctx.startActivity(intent);
                 }
             }
 
@@ -49,13 +50,13 @@ public class SendToServerUtility {
             @Override
             public void onResponse(Call call, Response response) {
                 if (response.isSuccessful()) {
-                    //Toast.makeText(ctx, "Data sent successfully", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(ctx, "Trip data sent successfully", Toast.LENGTH_LONG).show();
                     SaveToDBUtility.updateTripDataToSent(ctx);
                     SaveToDBUtility.updatePerformanceToSent(ctx);
                 } else {
-                    //Toast.makeText(ctx, "Problem: " + response.errorBody().toString(), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(ctx, LoginActivity.class);
-                    ctx.startActivity(intent);
+                    Toast.makeText(ctx, response.code() + ": " + response.message(), Toast.LENGTH_LONG).show();
+                    //Intent intent = new Intent(ctx, LoginActivity.class);
+                    //ctx.startActivity(intent);
                 }
             }
 

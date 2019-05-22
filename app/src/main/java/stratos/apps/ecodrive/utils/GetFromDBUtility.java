@@ -11,6 +11,7 @@ import java.util.List;
 
 import stratos.apps.ecodrive.data.PerformanceContract;
 import stratos.apps.ecodrive.data.TripContract;
+import stratos.apps.ecodrive.data.UserContract;
 import stratos.apps.ecodrive.data.VehicleContract;
 import stratos.apps.ecodrive.model.Performance;
 import stratos.apps.ecodrive.model.Trip;
@@ -20,6 +21,21 @@ public class GetFromDBUtility {
 
     public static String getVehicleUuid() {
         return null;
+    }
+
+    public static boolean isRegistrationSent(Context ctx) {
+        String mSelection = "data_sent=?";
+        String[] mSelectionArgs = new String[]{ "1" };
+        Cursor cursor = ctx.getContentResolver().query(UserContract.UserEntry.CONTENT_URI,
+                null,
+                mSelection,
+                mSelectionArgs,
+                null,
+                null);
+        if (cursor != null && cursor.getCount() > 0) {
+            return true;
+        }
+        return false;
     }
 
     public static Trip getUnsentTripData(Context ctx) {

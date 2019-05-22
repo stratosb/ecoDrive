@@ -2,16 +2,13 @@ package stratos.apps.ecodrive;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
@@ -25,7 +22,6 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -39,7 +35,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -62,8 +57,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import stratos.apps.ecodrive.broadcastreceiver.NetworkChangeReceiver;
-import stratos.apps.ecodrive.data.TripContract;
 import stratos.apps.ecodrive.model.Performance;
 import stratos.apps.ecodrive.model.Scoring;
 import stratos.apps.ecodrive.model.Trip;
@@ -175,15 +168,11 @@ public class ScoreActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        // get sharedPreferences
-        SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
-        String email = sharedPref.getString("email", "");
-        if (Strings.isEmptyOrWhitespace(email)) {
+        if (!GetFromDBUtility.isRegistrationSent(this)) {
             Intent intent = new Intent(ScoreActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
 
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
@@ -196,8 +185,8 @@ public class ScoreActivity extends AppCompatActivity {
             }
         }
 
-        //registerNetworkReceiver();
-
+        // get sharedPreferences
+        SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
         float points = sharedPref.getFloat("points", 0);
         float score = sharedPref.getFloat("score", 0);
         float safeDriving = sharedPref.getFloat("safeDriving", 0);
@@ -235,19 +224,6 @@ public class ScoreActivity extends AppCompatActivity {
         createLocationRequest();
         buildLocationSettingsRequest();
     }
-
-    /**
-     * This method is responsible to register receiver with NETWORK_CHANGE_ACTION.
-     * */
-    private void registerNetworkReceiver() {
-        try {
-            NetworkChangeReceiver networkReceiver = new NetworkChangeReceiver();
-            registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
 
     @Override
     public void onStart() {
@@ -749,13 +725,6 @@ public class ScoreActivity extends AppCompatActivity {
 
         if (Scoring.phone_usage) {
             Scoring.phone_usage = false;
-        }
-
-        if (tripData != null) {
-            SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
-            String token = sharedPref.getString("token", "");
-
-            SendToServerUtility.sendTripData(tripData, "Bearer " + token, ScoreActivity.this);
         }
     }
 

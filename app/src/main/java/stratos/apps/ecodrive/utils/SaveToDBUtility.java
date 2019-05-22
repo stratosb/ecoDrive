@@ -43,6 +43,18 @@ public class SaveToDBUtility {
         return n;
     }
 
+    public static int updateRegistrationToSent(Context ctx) {
+        ContentValues values = new ContentValues();
+        values.put(UserContract.UserEntry.COLUMN_DATA_SENT, 1);
+
+        String mSelection = "data_sent=?";
+        String[] mSelectionArgs = new String[]{ "0" };
+
+        int n = ctx.getContentResolver().update(UserContract.UserEntry.CONTENT_URI, values,
+                mSelection, mSelectionArgs);
+        return n;
+    }
+
     public static void saveTrip(Trip trip, Context ctx) {
         ContentValues tripValues = new ContentValues();
         tripValues.put(TripContract.TripEntry.COLUMN_DATETIME, trip.getDate_time().getTime());
@@ -98,6 +110,7 @@ public class SaveToDBUtility {
         userValues.put(UserContract.UserEntry.COLUMN_GENDER, registration.getGender());
         userValues.put(UserContract.UserEntry.COLUMN_AGE_GROUP, registration.getAgeGroup());
         userValues.put(UserContract.UserEntry.COLUMN_MARITAL_STATUS, registration.getMaritalStatus());
+        userValues.put(UserContract.UserEntry.COLUMN_DATA_SENT, 0);
         Uri uri = ctx.getContentResolver().insert(UserContract.UserEntry.CONTENT_URI, userValues);
         if (uri != null) {
             //Toast.makeText(ctx, "user: " + ctx.getResources().getString(R.string.prompt_data_added), Toast.LENGTH_SHORT).show();

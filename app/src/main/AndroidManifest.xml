@@ -25,7 +25,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".ScoreActivity"
+            android:name=".LoginActivity"
             android:icon="@drawable/logo"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -38,7 +38,7 @@
             android:name=".RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ScoreActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChildrenActivity"
@@ -61,12 +61,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".broadcastreceiver.NetworkChangeReceiver" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.net.wifi.STATE_CHANGE" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

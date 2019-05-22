@@ -33,7 +33,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
                         UserContract.UserEntry.COLUMN_PHONE + " TEXT NOT NULL, " +
                         UserContract.UserEntry.COLUMN_GENDER + " TEXT NOT NULL, " +
                         UserContract.UserEntry.COLUMN_AGE_GROUP + " TEXT NOT NULL, " +
-                        UserContract.UserEntry.COLUMN_MARITAL_STATUS + " TEXT NOT NULL" +
+                        UserContract.UserEntry.COLUMN_MARITAL_STATUS + " TEXT NOT NULL, " +
+                        UserContract.UserEntry.COLUMN_DATA_SENT + " INTEGER NOT NULL" +
                         "); ";
 
         db.execSQL(SQL_CREATE_USER_TABLE);

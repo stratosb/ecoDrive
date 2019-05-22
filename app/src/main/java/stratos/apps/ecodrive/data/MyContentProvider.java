@@ -211,6 +211,10 @@ public class MyContentProvider extends ContentProvider {
         int rowsUpdated = 0;
 
         switch (match) {
+            case USERS:
+                rowsUpdated = db.update(UserContract.UserEntry.TABLE_NAME,
+                        contentValues, s, strings);
+                break;
             case TRIPS:
                 rowsUpdated = db.update(TripContract.TripEntry.TABLE_NAME,
                         contentValues, s, strings);

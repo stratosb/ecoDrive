@@ -30,6 +30,7 @@ public class UserContract {
         public static final String COLUMN_GENDER = "gender";
         public static final String COLUMN_AGE_GROUP = "age_group";
         public static final String COLUMN_MARITAL_STATUS = "marital_status";
+        public static final String COLUMN_DATA_SENT = "data_sent";    // check whether data has been sent to server successfully
 
         public static Uri buildTripUriWithId(int id) {
             return CONTENT_URI.buildUpon()

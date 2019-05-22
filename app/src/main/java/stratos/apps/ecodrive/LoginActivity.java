@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import com.auth0.android.authentication.AuthenticationException;
 import com.auth0.android.provider.AuthCallback;
 import com.auth0.android.provider.WebAuthProvider;
 import com.auth0.android.result.Credentials;
+import com.google.android.gms.common.util.Strings;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -45,10 +48,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    //    @BindView(R.id.spinner) Spinner spinner;
-//    @BindView(R.id.toolbar) Toolbar toolbar;
-//    @BindView(R.id.loginButton) Button loginButton;
-//    @BindView(R.id.id_token) EditText id_token;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private String idToken = "";
     private Date tokenExpiryDate = null;
@@ -57,15 +58,36 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
-        login();
+        toolbar.setTitle(getResources().getString(R.string.title_activity_login));
+
+        SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
+        String token = sharedPref.getString("token", "");
+        Long expiresAt = sharedPref.getLong("expiresAt", 0);
+
+        if (Strings.isEmptyOrWhitespace(token)) {
+            login();
+        } else {
+            if (expiresAt > 0) {
+                Date expireDate = new Date(expiresAt);
+                if (new Date().compareTo(expireDate) >= 0) {
+                    login();
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, ScoreActivity.class);
+                    startActivity(intent);
+                }
+            } else {
+                login();
+            }
+        }
     }
 
     private void login() {
         Auth0 auth0 = new Auth0(this);
         auth0.setOIDCConformant(true);
         WebAuthProvider.init(auth0)
-                .withScheme("https")
+                .withScheme("demo")
                 .withAudience(String.format("https://%s/userinfo", getString(R.string.com_auth0_domain)))
                 .start(LoginActivity.this, new AuthCallback() {
                     @Override
@@ -99,7 +121,8 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putLong("expiresAt", credentials.getExpiresAt().getTime());
                                 editor.apply();
 
-                                finish();
+                                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                                LoginActivity.this.startActivity(intent);
 
                                 //id_token.setText(credentials.getIdToken());
                                 //idToken = credentials.getIdToken();

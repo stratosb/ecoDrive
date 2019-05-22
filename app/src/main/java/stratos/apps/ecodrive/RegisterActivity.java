@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -139,14 +140,6 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        // resend the data
-        if (registrationList != null) {
-            SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
-            String token = sharedPref.getString("token", "");
-
-            SendToServerUtility.sendRegistration(registrationList, "Bearer " + token, RegisterActivity.this);
-        }
     }
 
     public void register(View view) {
@@ -160,39 +153,43 @@ public class RegisterActivity extends AppCompatActivity {
                 vehicles == null) {
             Toast.makeText(this, getResources().getString(R.string.prompt_fill_in_details), Toast.LENGTH_LONG).show();
         } else {
-            registration = new Registration();
-            registration.setFullname(txtFullName.getText().toString());
-            registration.setEmail(txtEmail.getText().toString());
-            registration.setPhone(txtPhone.getText().toString());
-            registration.setGender(((RadioButton) findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString());
-            registration.setAgeGroup(spinnerAgeGroup.getSelectedItem().toString());
-            registration.setMaritalStatus(spinnerMaritalStatus.getSelectedItem().toString());
-            if (children == null) {
-                List<Child> empty_children = new ArrayList<>();
-                registration.setChildren(empty_children);
+            if (!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString()).matches()) {
+                Toast.makeText(this, getResources().getString(R.string.prompt_invalid_email), Toast.LENGTH_LONG).show();
             } else {
-                registration.setChildren(children);
-            }
-            registration.setVehicles(vehicles);
+                registration = new Registration();
+                registration.setFullname(txtFullName.getText().toString());
+                registration.setEmail(txtEmail.getText().toString());
+                registration.setPhone(txtPhone.getText().toString());
+                registration.setGender(((RadioButton) findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString());
+                registration.setAgeGroup(spinnerAgeGroup.getSelectedItem().toString());
+                registration.setMaritalStatus(spinnerMaritalStatus.getSelectedItem().toString());
+                if (children == null) {
+                    List<Child> empty_children = new ArrayList<>();
+                    registration.setChildren(empty_children);
+                } else {
+                    registration.setChildren(children);
+                }
+                registration.setVehicles(vehicles);
 
-            // save date to db
-            SaveToDBUtility.saveRegistration(registration, this);
+                // save date to db
+                SaveToDBUtility.saveRegistration(registration, this);
 
-            // prepare for sending data to server
-            registrationList = new ArrayList<>();
-            registrationList.add(registration);
+                // prepare for sending data to server
+                registrationList = new ArrayList<>();
+                registrationList.add(registration);
 
-            SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
-            String token = sharedPref.getString("token", "");
+                SharedPreferences sharedPref = getSharedPreferences("userData", MODE_PRIVATE);
+                String token = sharedPref.getString("token", "");
 
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("email", registration.getEmail());
-            editor.putString("gender", registration.getGender());
-            editor.apply();
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("email", registration.getEmail());
+                editor.putString("gender", registration.getGender());
+                editor.apply();
 
-            // send data to server
-            if (NetworkUtils.existsNetworkConnection(this)) {
-                SendToServerUtility.sendRegistration(registrationList, "Bearer " + token, RegisterActivity.this);
+                // send data to server
+                if (NetworkUtils.existsNetworkConnection(this)) {
+                    SendToServerUtility.sendRegistration(registrationList, "Bearer " + token, RegisterActivity.this);
+                }
             }
         }
     }

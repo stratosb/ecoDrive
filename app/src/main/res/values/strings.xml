@@ -6,6 +6,7 @@
 
     <string name="title_activity_score">Score</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_login">Login</string>
 
     <string name="sort_by">Options</string>
     <string name="view_resutls">View results</string>
@@ -96,6 +97,7 @@
     <string name="prompt_no_data_found">No data found</string>
     <string name="prompt_send_data_to_server">There is data that must be sent to server</string>
     <string name="prompt_fill_in_details">Please fill in all details</string>
+    <string name="prompt_invalid_email">Please enter a valid email</string>
 
     <string name="prompt_activate_connection">There is no internet connection. Would you like to activate it?</string>
     <string name="prompt_goto_settings">Go to Settings</string>
