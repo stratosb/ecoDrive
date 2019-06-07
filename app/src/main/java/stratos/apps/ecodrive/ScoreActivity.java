@@ -346,7 +346,7 @@ public class ScoreActivity extends AppCompatActivity {
                     Scoring.excessive_speeding = false;
                 }
 
-                if (Scoring.speed >= 0 || Scoring.speed <= 10) {
+                if (Scoring.speed >= 0 && Scoring.speed <= 10) {
                     if (Scoring.idling) {
                         if (Scoring.previousLocation != null) {
                             // distance in meters
@@ -515,6 +515,14 @@ public class ScoreActivity extends AppCompatActivity {
             phoneUsageDistance = 100 - (Scoring.phone_usage_distance / Scoring.totalDistance) * 12;
             phoneUsage = 0.3 * phoneUsageCount + 0.7 * phoneUsageDistance;
         }
+        if (hardAcceleration < 0) hardAcceleration = 0;
+        if (harshBraking < 0) harshBraking = 0;
+        if (harshCornering < 0) harshCornering = 0;
+        if (excessiveSpeeding < 0) excessiveSpeeding = 0;
+        if (idling < 0) idling = 0;
+        if (speeding < 0) speeding = 0;
+        if (phoneUsage < 0) phoneUsage = 0;
+        
         double focus = (hardAcceleration + harshBraking + excessiveSpeeding + phoneUsage) / 4;
         double speed = (excessiveSpeeding + speeding) / 2;
         double safety = (focus + speed) / 2;
